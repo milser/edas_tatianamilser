@@ -21,11 +21,11 @@ The template library is [`edas_tatmil`](https://github.com/matthewfeickert/Pytho
 
 1. Edit `setup.py` to reflect all of your library's needs and requirements
 2. Edit the paths to badges in the `README` to match your library's locations
-   - Change `libame` to your library's name
+   - Change `edas_tatmil` to your library's name
    - Change `matthewfeickert` to your username or org name on GitHub
    - Change `python-library-template` to your project name on GitHub (probably the same as the library name)
 3. Replace the rest of the `README` contents with your information
-4. Run `git grep "edas_tatmil"` to make sure that you have changed all instances of `libame` (it is easy to miss the dotfiles)
+4. Run `git grep "edas_tatmil"` to make sure that you have changed all instances of `edas_tatmil` (it is easy to miss the dotfiles)
 5. Setup accounts with [Codecov](https://codecov.io/), [LGTM](https://lgtm.com/), and [CodeFactor](https://www.codefactor.io/)
    - Also add the [Codecov](https://github.com/marketplace/codecov) and [LGTM](https://github.com/marketplace/lgtm) GitHub marketplace apps
 6. Generate a Codecov token and add it to your [GitHub repo's secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/contexts-and-expression-syntax-for-github-actions#contexts) with name `CODECOV_TOKEN`
