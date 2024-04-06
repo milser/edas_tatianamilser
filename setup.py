@@ -1,21 +1,22 @@
-from setuptools import setup
-
-extras_require = {
-    "develop": [
-        "check-manifest",
-        "pytest~=5.2",
-        "pytest-cov~=2.8",
-        "pytest-console-scripts~=0.2",
-        "bumpversion~=0.5",
-        "pyflakes",
-        "pre-commit",
-        "black",
-        "twine",
-    ],
-}
-extras_require["complete"] = sorted(set(sum(extras_require.values(), [])))
+from setuptools import setup, find_packages
 
 setup(
-    extras_require=extras_require,
-    entry_points={"console_scripts": ["libname=libname.commandline:libname"]},
+    name='edas_tatmil',
+    version='0.2',
+    packages=find_packages(),
+    # Metadatos adicionales del proyecto
+    author='Tatiana Cazorla y Rubén Serrano',
+    description='Tu EDA mas sencillo',
+    url='https://github.com/milser/edas_tatianamilser',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        # Lista de clasificaciones de compatibilidad con Python, SO, etc.
+    ],
+    install_requires=[
+        "pandas",
+        "matplotlib",
+        "seaborn",
+        "importlib",
+        "tabulate",
+    ],
 )

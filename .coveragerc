@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = src/libname
+source = src/edas_tatmil
 
 [report]
 exclude_lines =

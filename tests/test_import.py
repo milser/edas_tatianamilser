@@ -1,5 +1,5 @@
-import libname
+import edas_tatmil
 
 
 def test_import():
-    assert libname
+    assert edas_tatmil
