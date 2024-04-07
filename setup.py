@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='edastatmil_milser',
-    version='0.7',
+    version='0.8',
     packages=find_packages(),
     # Metadatos adicionales del proyecto
     author='Tatiana Cazorla y Rubén Serrano',

@@ -1,6 +1,6 @@
 # Python library template
 
-A template repository for a modern Python library
+EDAS V0.8
 
 [![GitHub Actions Status](https://github.com/milser/python-library-template/workflows/CI/CD/badge.svg)](https://github.com/milser/python-library-template/actions)
 [![Code Coverage](https://codecov.io/gh/milser/Python-library-template/graph/badge.svg?branch=master)](https://codecov.io/gh/milser/Python-library-template?branch=master)
