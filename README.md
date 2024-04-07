@@ -41,6 +41,31 @@ Esta librería proporciona herramientas útiles para llevar a cabo un EDA comple
 2. **Instalar la librería:**  
    ```bash
    pip install edastatmil-milser
+
+3. **Importar lalibrería:**  
+   ```bash
+   from edastatmil_milser import edas_tatmil as EDA
+
+4. **Ejemplo de llamada de función**
+   ```bash
+   EDA.function_example
+
+## Funciones
+### `get_column_type(series)`
+
+Esta función estudia si una característica es numérica o categórica.
+
+- **Atributos:** no requerido.
+
+- **Ejemplo de uso:**
+  ```python
+  variables = pd.DataFrame({'Data Type': data_frame.dtypes})
+  variables['Data category'] = df.apply(EDA.get_column_type)
+
+Añade una columna nueva al dataframe 'variables' llamada 'Data type' indicando si la variable es categorica o numérica.
+- **Return:**
+   'Categorical' si la variable es categórica 'Numerical' si es numérica.
+
 ## Controlling the version number with bumpversion
 
 When you want to increment the version number for a new release use [`bumpversion`](https://github.com/peritus/bumpversion) to do it correctly across the whole library.
