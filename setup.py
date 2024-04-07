@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name='edastatmil_milser',
     version='0.8',
-    packages=find_packages(),
-    # Metadatos adicionales del proyecto
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     author='Tatiana Cazorla y Rubén Serrano',
     description='Tu EDA mas sencillo',
     url='https://github.com/milser/edas_tatianamilser',
