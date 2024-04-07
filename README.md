@@ -17,19 +17,30 @@ EDAS V0.8
 
 The template library is [`edas_tatmil`](https://github.com/milser/Python-library-template/search?q=edas_tatmil&unscoped_q=edas_tatmil) to make it clear what is needed for replacement
 
-## Setting up the template for your library
+## Descripción General  
+Esta librería proporciona herramientas útiles para llevar a cabo un EDA completo.  
 
-1. Edit `setup.py` to reflect all of your library's needs and requirements
-2. Edit the paths to badges in the `README` to match your library's locations
-   - Change `edas_tatmil` to your library's name
-   - Change `milser` to your username or org name on GitHub
-   - Change `python-library-template` to your project name on GitHub (probably the same as the library name)
-3. Replace the rest of the `README` contents with your information
-4. Run `git grep "edas_tatmil"` to make sure that you have changed all instances of `edas_tatmil` (it is easy to miss the dotfiles)
-5. Setup accounts with [Codecov](https://codecov.io/), [LGTM](https://lgtm.com/), and [CodeFactor](https://www.codefactor.io/)
-   - Also add the [Codecov](https://github.com/marketplace/codecov) and [LGTM](https://github.com/marketplace/lgtm) GitHub marketplace apps
-6. Generate a Codecov token and add it to your [GitHub repo's secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/contexts-and-expression-syntax-for-github-actions#contexts) with name `CODECOV_TOKEN`
+> **⚠️ Nota:** Este módulo está en fase de desarrollo y puede tener errores.  
 
+> **⚠️ Nota:** Algunas funciones sólo aplican a casos muy generales. Para hacer un buen EDA se debe comprender el caso específico en el que se trabaja y, en muchas ocasiones, se necesitarán acciones que no están recogidas en este módulo.  
+
+> **⚠️ Nota:** Lea detenidamente la descripción de las funciones, ya que algunas necesitan un sistema específico de archivos. La estructura final de archivos si se hace el EDA con edastatmil-milser se muestra en la figura [ffinal](#fig:ffinal).
+
+## Instalación
+1. **Requerimientos:**  
+   - tabulate  
+   - pandas  
+   - matplotlib.pyplot  
+   - seaborn  
+   - math  
+   - os  
+   - sklearn.model_selection  
+   - importlib  
+   Pueden instalarse desde la terminal con `pip install`.
+
+2. **Instalar la librería:**  
+   ```bash
+   pip install edastatmil-milser
 ## Controlling the version number with bumpversion
 
 When you want to increment the version number for a new release use [`bumpversion`](https://github.com/peritus/bumpversion) to do it correctly across the whole library.

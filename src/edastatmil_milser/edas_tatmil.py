@@ -58,7 +58,7 @@ def get_column_type(series: str) -> Literal['Numeric','Categorical']:
     series_ = series.copy()
     
     if pd.api.types.is_numeric_dtype(series_):
-        return 'Numeric'
+        return 'Numerical'
     else:
         return 'Categorical'
 
@@ -370,13 +370,15 @@ def correlation_matrix(df: pd.DataFrame, variables_list: List[str]) -> None:
 
     Returns::
 
-        None
+        pd.DataFrame: The pandas DataFrame with the factorized categorical variables.
     """
     df_ = df.copy()
     variables_list_ = variables_list.copy()
     
     fz_df_ = factorize_categorical(df_, variables_list_)
     sns.heatmap(fz_df_.corr(), annot = True, fmt = ".2f")
+
+    return fz_df_
 
 def numerical_box(variables: List[str], data_frame: pd.DataFrame, color: str = '#1295a6') -> None:
     """
@@ -440,7 +442,7 @@ def outliers_iqr(df: pd.DataFrame, var: str, sigma: float, Do: str = 'nothing') 
 
         tuple: A tuple containing two DataFrames.
                The first DataFrame contains the identified outliers.
-               The second DataFrame contains the original data with outliers treated according to the option specified in 'Do_'.
+               The second DataFrame contains the original data with outliers treated according to the option specified in 'Do'.
     """    
     df_ = df.copy()
     var_ = var
