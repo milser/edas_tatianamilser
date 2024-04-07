@@ -309,7 +309,7 @@ Esta función hace el feature selection sobre los dataset de entrenamiento, deja
 Se pueden cargar los dataframe normalizados desde donde se hayan guardado.
 Se creará un dataframe de entrenamiento que sólo contenga las columnas más relevantes según el método y test indicados.  
 - **Return:**
-  Crea una carpeta en la carpeta SplitData, llamada FeatureSel y se guardará el dataset sólo con las columnas seleccionadas con el nombre indicado y la coletilla \_FeatureSol
+  Crea una carpeta en la carpeta SplitData, llamada FeatureSel y se guardará el dataset sólo con las columnas seleccionadas con el nombre indicado y la coletilla _FeatureSol
 
 ## Version
 
