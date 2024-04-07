@@ -25,6 +25,7 @@ Esta librería proporciona herramientas útiles para llevar a cabo un EDA comple
 > **⚠️ Nota:** Algunas funciones sólo aplican a casos muy generales. Para hacer un buen EDA se debe comprender el caso específico en el que se trabaja y, en muchas ocasiones, se necesitarán acciones que no están recogidas en este módulo.  
 
 > **⚠️ Nota:** Lea detenidamente la descripción de las funciones, ya que algunas necesitan un sistema específico de archivos. La estructura final de archivos si se hace el EDA con edastatmil-milser se muestra en la siguiente figura:
+
 ![files](./images/final.png)
 
 ## Instalación
@@ -226,7 +227,9 @@ Esta hace un gráfico de caja por cada variable dela lista y los muestra en una 
 
 Esta función busca outliers en la columna indicada, con el criterio de rango intercuartílico (75\%-25\%). Se ajustan los límites superior e inferior del intervalo de valores aceptados con un parámetro sigma. Hay diferentes opciones para tratar los outliers encontrados.
 > **⚠️ Nota:** Esta función no es la única forma de tratar los outliers y para casos específicos no contemplados aquí deberá hacerse a mano.
+
 > **⚠️ Nota:** Hay que tener encuenta que esta función tratará de la forma indicada TODOS los outliers de la misma columna.
+
 > **⚠️ Nota:** Esta función es útil para contar y encontrar outliers mediante rango intercuartílico con Do='nothing' y luego, una vez hallados, poder usar otros métodos para su tratamiento.
 
 - **Atributos:** 
@@ -246,7 +249,9 @@ En este caso cleaned\_df no tendrá las filas de outliers porque se ha escogido 
 
 Esta función divide en train y test todos los dataframe encontrados en la ruta indicada.
 > **⚠️ Nota:** Hay que asegurarse de que en la ruta indicada sólo están los dataframe que se quieren dividir. El resto deben guardarse en otra carpeta.
+
 > **⚠️ Nota:** Asegúrate de haber nombrado bien los archivos iniciales para luego poder diferenciar todos los archivos resultantes de la división.
+
 - **Atributos:** 
    - origin_root: la ruta donde se encuentran los dataframe que se quieren dividir, incluyendo / al final.
    - predictors: lista de las variables predictoras.
@@ -265,7 +270,9 @@ Se dividirán en train y test todos los dataframes guardados en la ruta '../data
 
 Esta función normaliza los datos de las variables predictoras.
 > **⚠️ Nota:** Recuerda que la target no se normaliza.
+
 > **⚠️ Nota:** Antes de usar esta función, las variables categóricas deben estar factorizadas.
+
 > **⚠️ Nota:** Asegúrate de que los archivos que quieres normalizar incluyen la coletilla _X
 
 - **Atributos:** 
