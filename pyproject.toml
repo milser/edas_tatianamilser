@@ -1,21 +1,18 @@
-[tool.black]
-line-length = 88
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | .eggs
-  | build
-)/
-'''
-
-[tool.check-manifest]
-ignore = [
-    'examples/**',
-    'tests/**',
-    'binder/**',
-    '.*',
-    'pyproject.toml',
-    'pytest.ini',
-    'CODE_OF_CONDUCT.md',
+[project]
+name = "edastatmil_milser"
+version = "0.0.5"
+authors = [
+  { name="TatianaCC y milser", email="author@example.com" },
 ]
+description = "A small example package"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/milser/edas_tatianamilser"
+Issues = "https://github.com/milser/edas_tatianamilser/issues"
