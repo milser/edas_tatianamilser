@@ -66,7 +66,7 @@ This function gives a general idea of the dataframe's content.
 
 - **Usage example:**
   ```python
-   categorical_list, numerical_list = EDA.explore(df_example)
+  categorical_list, numerical_list = EDA.explore(df_example)
 
 Displays the number of columns and rows and a table with information about non-null, null values, data type, and category of the variables.
 
@@ -84,7 +84,7 @@ This function looks for duplicates in a column and gives the option to remove th
 
 - **Usage example:**
   ```python
-   df_without_duplicates = EDA.FindDuplicates(df_example, 'id_host', Drop=True)
+  df_without_duplicates = EDA.FindDuplicates(df_example, 'id_host', Drop=True)
 Returns the dataframe without duplicate rows according to the 'id_host' column.
 
 - **Return:**
@@ -99,7 +99,7 @@ This function searches for elements that occupy more than 50\% of their column a
 
 - **Usage example:**
   ```python
-   EDA.Find_over_50_percent_value(df_example)
+  EDA.Find_over_50_percent_value(df_example)
 Shows information about irrelevant values in the dataframe.
 
 - **Return:**
@@ -117,8 +117,8 @@ This function creates a histogram for each variable in the 'variables' list. It 
 
 - **Usage example:**
   ```python
-   list = ['age,'smoke','region','children']
-   EDA.univariate\_hist(list,df_example)
+  list = ['age,'smoke','region','children']
+  EDA.univariate\_hist(list,df_example)
 Draws a figure with 4 histograms, three in the first row and one in the second, without kernel density estimation line and in turquoise.
 
 - **Return:**
@@ -135,8 +135,8 @@ This function creates a histogram and a box plot for each variable in the 'varia
 
 - **Usage example:**
   ```python
-   list = ['age,'smoke','charges','bmi']
-   EDA.un
+  list = ['age,'smoke','charges','bmi']
+  EDA.un
 
 ### `multivariate_barplots(df, variable_lists,y='count',palette='Set2')`
 
@@ -150,8 +150,8 @@ This function creates a multivariable bar plot for each set of variables within 
 
 - **Usage example:**
   ```python
-   variable_lists=[['age','charges','smoker'], ['sex','charges','children']]
-   EDA.multivariate_barplots(df, variable_lists,y='mean')
+  variable_lists=[['age','charges','smoker'], ['sex','charges','children']]
+  EDA.multivariate_barplots(df, variable_lists,y='mean')
 
 ![multivariate](./images/multivariate.png)
 Draws a figure with 2 bar plots. In the first one, age is represented on the x-axis, with one bar for each value of the smoker column, and the bar height represents the mean of the 'charges' variable for each group. In the second plot, age is represented on the x-axis, with one bar for each value of the 'children' column, and the bar height represents the mean of 'charges' for each group.
@@ -169,7 +169,7 @@ This function factorizes the categorical variables included in the 'cols_to_fact
 
 - **Usage example:**
   ```python
-   fz_df = factorize_categorical(df,variables_list)
+  fz_df = factorize_categorical(df,variables_list)
 
 - **Return:**
    Returns the dataframe with the indicated variables factorized.
@@ -185,7 +185,7 @@ This function constructs and displays a correlation matrix heatmap.
 
 - **Usage example:**
   ```python
-   df_factorice = EDA.correlation_matrix(raw_df, categorical_list)
+  df_factorice = EDA.correlation_matrix(raw_df, categorical_list)
 ![heatmap](./images/heatmap.png)
 - **Return:**
    Displays the figure and returns the dataframe with the factorized categorical variables.
@@ -201,8 +201,8 @@ This function creates a box plot for each variable in the list and displays them
 
 - **Usage example:**
   ```python
-   numerical = ['age','bmi','children','charges']
-   EDA.numerical_box(numerical, raw_df)
+  numerical = ['age','bmi','children','charges']
+  EDA.numerical_box(numerical, raw_df)
 ![box](./images/box.png)
 - **Return:**
    Displays the figure.
@@ -222,7 +222,7 @@ This function searches for outliers in the indicated column, using the interquar
 
 - **Usage example:**
   ```python
-   outliers, cleaned_df =EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
+  outliers, cleaned_df =EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
 In this case, cleaned_df will not have the outlier rows because 'drop' option is chosen.
 - **Return:**
   Returns a dataframe with the outliers and another dataframe with the outliers treated according to the chosen method. In any case, it will print the number of outliers found.
@@ -241,9 +241,9 @@ This function splits all dataframes found in the indicated path into train and t
 
 - **Usage example:**
   ```python
-   predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
-   target = 'charges'
-   EDA.splitter('../data/processed/',predictors,target)
+  predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
+  target = 'charges'
+  EDA.splitter('../data/processed/',predictors,target)
 All dataframes saved in the path '../data/processed/' will be split into train and test sets.
 - **Return:**
   Creates a folder in the indicated path named SplitData. Inside, you will find all resulting dataframes from the split of each file. To the original file names, the suffixes _Xtrain, _Xtest, _ytrain, _ytest will be added to differentiate them.
@@ -264,8 +264,8 @@ This function normalizes the data of the predictor variables.
 
 - **Usage example:**
   ```python
-   predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
-   EDA.normalize('../data/processed/SplitData/',predictors,scaler_='StandardScaler')
+  predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
+  EDA.normalize('../data/processed/SplitData/',predictors,scaler_='StandardScaler')
 Predictor variables of all dataframes located in the directory '../data/processed/SplitData/' and containing the suffixes _Xtrain,_Xtest in their file names will be normalized.
 - **Return:**
   Creates a folder in the indicated path named NormData. Inside, you will find all resulting dataframes from the normalization of each dataframe. To the original file names, the suffix _norm will be added.
@@ -285,9 +285,9 @@ This function performs feature selection on the training datasets, leaving a num
 
 - **Usage example:**
   ```python
-   All_X_train = pd.read_csv('../data/processed/SplitData/NormData/All_factorize_Xtrain_norm.csv')
-   All_y_train = pd.read_csv('../data/processed/SplitData/All_factorize_ytrain.csv')    
-   EDA.feature_sel(All_X_train,All_y_train,k_=4,file_name='All_Xtrain', method_='SelectKBest', test_='mutual_info_regression')
+  All_X_train = pd.read_csv('../data/processed/SplitData/NormData/All_factorize_Xtrain_norm.csv')
+  All_y_train = pd.read_csv('../data/processed/SplitData/All_factorize_ytrain.csv')    
+  EDA.feature_sel(All_X_train,All_y_train,k_=4,file_name='All_Xtrain', method_='SelectKBest', test_='mutual_info_regression')
 Normalized dataframes can be loaded from wherever they were saved.
 A training dataframe will be created containing only the most relevant columns according to the specified method and test.  
 - **Return:**
