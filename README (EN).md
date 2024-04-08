@@ -1,21 +1,12 @@
 # Python library template
 
-EDAS V0.8
-
-[![GitHub Actions Status](https://github.com/milser/python-library-template/workflows/CI/CD/badge.svg)](https://github.com/milser/python-library-template/actions)
-[![Code Coverage](https://codecov.io/gh/milser/Python-library-template/graph/badge.svg?branch=master)](https://codecov.io/gh/milser/Python-library-template?branch=master)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/milser/Python-library-template.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/milser/Python-library-template/latest/files/)
-[![CodeFactor](https://www.codefactor.io/repository/github/milser/Python-library-template/badge)](https://www.codefactor.io/repository/github/milser/Python-library-template)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-[![Docs](https://img.shields.io/badge/docs-master-blue.svg)](https://milser.github.io/python-library-template)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/milser/python-library-template/master)
+EDAS V0.9
 
 <!-- Here edas_tatmil should be replaced with your library's name on PyPI  -->
-[![PyPI version](https://badge.fury.io/py/edas_tatmil.svg)](https://badge.fury.io/py/edas_tatmil)
-[![Supported Python versions](https://img.shields.io/pypi/pyversions/edas_tatmil.svg)](https://pypi.org/project/edas_tatmil/)
+[![PyPI version](https://badge.fury.io/py/edastatmil-milser.svg)](https://badge.fury.io/py/edastatmil-milser)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/edastatmil-milser.svg)](https://pypi.org/project/edastatmil-milser/)
 
-The template library is [`edas_tatmil`](https://github.com/milser/Python-library-template/search?q=edas_tatmil&unscoped_q=edas_tatmil) to make it clear what is needed for replacement
+This library is [`edastatmil-milser`](https://github.com/milser/Python-library-template/search?q=edas_tatianamilser&unscoped_q=edas_tatianamilser) 
 
 ## General Description  
 This library provides useful tools for performing a complete EDA.
