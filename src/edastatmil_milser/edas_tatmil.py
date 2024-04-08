@@ -33,18 +33,19 @@ import seaborn as sns
 import os
 import math
 import importlib
-import tabulate
+
+from tabulate import tabulate
 from typing import List, Tuple, Literal, Union, Dict
 
 ############################################################################
 
 
-def get_column_type(series: str) -> Literal['Numeric','Categorical']:
+def get_column_type(series: str) -> Literal['Numerical','Categorical']:
     """
     Determines the column type of a pandas series.
 
     This function takes a pandas series as input and determines whether the data
-    in the series are `numeric` or `categorical`.
+    in the series are `Numerical` or `categorical`.
 
     Parameters::
 
@@ -52,7 +53,7 @@ def get_column_type(series: str) -> Literal['Numeric','Categorical']:
 
     Returns::
     
-        str: 'Numeric': If they are numeric.
+        str: 'Numerical': If they are Numerical.
              'Categorical': If they are categorical.
     """
     series_ = series.copy()
@@ -68,7 +69,7 @@ def explore(data_frame: pd.DataFrame) -> Tuple[List[str], List[str]]:
 
     This function `prints` useful `information` about the provided pandas DataFrame,
     including the number of `rows` and `columns`, the count of `null` and `non-null` values,
-    the `data type` of each column, and whether each column is `categorical` or `numeric`.
+    the `data type` of each column, and whether each column is `categorical` or `numerical`.
 
     Parameters::
 
@@ -77,7 +78,7 @@ def explore(data_frame: pd.DataFrame) -> Tuple[List[str], List[str]]:
     Returns:
 
         tuple: A tuple containing two lists. The first list contains the names of categorical columns.
-        The second list contains the names of numeric columns.
+        The second list contains the names of Numerical columns.
     """
     data_frame_ = data_frame.copy()
     
@@ -98,7 +99,7 @@ def explore(data_frame: pd.DataFrame) -> Tuple[List[str], List[str]]:
 
     # Get list of categorical and numerical variables_
     categorical_columns_ = list(column_data_[column_data_['Data Category'] == 'Categorical'].index)
-    numeric_columns_ = list(column_data_[column_data_['Data Category'] == 'Numeric'].index)
+    numeric_columns_ = list(column_data_[column_data_['Data Category'] == 'Numerical'].index)
     
     return categorical_columns_, numeric_columns_
 
@@ -209,19 +210,19 @@ def univariate_hist(variables: List[str], data_frame: pd.DataFrame, color: str =
     num_plots_ = len(variables_)
     num_rows_ = (num_plots_ - 1) // 3 + 1  # N rows
     
-    fig_, axes_ = plt.subplots(num_rows_, 3, figsize=(15, 5*num_rows_))
-    axes_ = axes_.flatten()  
+    fig_, axs_ = plt.subplots(num_rows_, 3, figsize=(15, 5*num_rows_))
+    axs_ = axs_.flatten()  
 
     for i_, var_ in enumerate(variables_):
-        ax_ = axes_[i_]
+        ax_ = axs_[i_]
         sns.histplot(data_frame_[var_], ax=ax_, kde=kde_, color=color_)
         ax_.set_title(var_)
         ax_.set_xlabel('')
         ax_.set_ylabel('')
         
-    # Remove empty axes_
-    for j_ in range(i_+1, len(axes_)):
-        fig_.delaxes(axes_[j_])
+    # Remove empty axs_
+    for j_ in range(i_+1, len(axs_)):
+        fig_.delaxes(axs_[j_])
     
     plt.tight_layout()
 
@@ -265,7 +266,7 @@ def univariate_histbox(variables: List[str], data_frame: pd.DataFrame, color: st
 
     plt.tight_layout()
 
-def multivariate_barplots(df: pd.DataFrame, variable_lists: List[List[str]], y: str = 'count', palette: str = 'Set2') -> None:
+def multivariate_barplots(df: pd.DataFrame, variable_lists: Union[List[str], List[List[str]]], y: str = 'count', palette: str = 'Set2') -> None:
     """
     Creates multivariate bar plots for the specified variables in a pandas DataFrame.
 
@@ -275,8 +276,9 @@ def multivariate_barplots(df: pd.DataFrame, variable_lists: List[List[str]], y: 
     Parameters::
 
         df (pandas.DataFrame): The pandas DataFrame containing the data.
-        variable_lists (List[List[str]]): List of lists containing variable names.
-        Each sublist should contain three elements: the x variable, the y variable, and the hue variable.
+        variable_lists (Union[List[str], List[List[str]]]): List of lists containing variable names,
+        or a single list containing variable names. Each sublist should contain three elements:
+        the x variable, the y variable, and the hue variable.
         y (str, optional): Specifies whether to compute y values as 'count' or 'mean'. Default is 'count'.
         palette (str, optional): Color palette to use in the plots. Default is 'Set2'.
 
@@ -286,32 +288,34 @@ def multivariate_barplots(df: pd.DataFrame, variable_lists: List[List[str]], y: 
     """
     df_ = df.copy()
     variable_lists_ = variable_lists.copy()
+    if isinstance(variable_lists_[0], str):
+        variable_lists_ = [variable_lists_]
     y_ = y
     palette_ = palette
         
     num_plots_ = len(variable_lists_)
-    _, axes_ = plt.subplots(num_plots_, 1, figsize=(10, 5 * num_plots_))
+    _, axs_ = plt.subplots(num_plots_, 1, figsize=(10, 5 * num_plots_))
 
-    for i_, variables_ in enumerate(variable_lists_):
+    for i, variables_ in enumerate(variable_lists_):
         if y_ == 'count':
             df_ = df_.groupby(variables_).size().reset_index(name='count')
-
             x_, hue_ = variables_[0], variables_[2]
-            ax_ = axes_[i_]
-            sns.barplot(data=df_, x=x_, y='count', hue=hue_, ax=ax_,palette=palette_,errorbar=None)
+            ax_ = axs_[i] if num_plots_ > 1 else axs_  # Acceder al eje correspondiente
+            sns.barplot(data=df_, x=x_, y='count', hue=hue_, ax=ax_, palette=palette_, errorbar=None)
             ax_.set_xlabel(variables_[0])
             ax_.set_ylabel('Count')
         elif y_ == 'mean':
             try:
                 mean_ = df_.groupby([variables_[0], variables_[2]])[variables_[1]].mean().reset_index()
                 x_, hue_ = variables_[0], variables_[2]
-                ax_ = axes_[i_]
-                sns.barplot(data=mean_, x=x_, y=variables_[1], hue=hue_, ax=ax_,palette=palette_,errorbar=None)
+                ax_ = axs_[i] if num_plots_ > 1 else axs_  # Acceder al eje correspondiente
+                sns.barplot(data=mean_, x=x_, y=variables_[1], hue=hue_, ax=ax_, palette=palette_, errorbar=None)
                 ax_.set_xlabel(variables_[0])
                 ax_.set_ylabel('Mean')
             except:
                 print('y variable is not numerical')
     plt.tight_layout()
+
 
 def factorize_categorical(df: pd.DataFrame, cols_to_factor: List[str]) -> pd.DataFrame:
     """
@@ -404,18 +408,18 @@ def numerical_box(variables: List[str], data_frame: pd.DataFrame, color: str = '
     num_plots_ = len(variables_)
     num_rows_ = (num_plots_ - 1) // 3 + 1  # N rows
     
-    fig_, axes_ = plt.subplots(num_rows_, 3, figsize=(15, 5*num_rows_))
-    axes_ = axes_.flatten()  
+    fig_, axs_ = plt.subplots(num_rows_, 3, figsize=(15, 5*num_rows_))
+    axs_ = axs_.flatten()  
 
     for i_, var_ in enumerate(variables_):
-        ax_ = axes_[i_]
+        ax_ = axs_[i_]
         sns.boxplot(x=data_frame_[var_], ax=ax_, color=color_)
         ax_.set_title(var_)
         ax_.set_xlabel('')
         ax_.set_ylabel('')
 
-    for j_ in range(i_+1, len(axes_)):
-        fig_.delaxes(axes_[j_])
+    for j_ in range(i_+1, len(axs_)):
+        fig_.delaxes(axs_[j_])
     
     plt.tight_layout()
 
