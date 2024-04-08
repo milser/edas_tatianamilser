@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='edastatmil_milser',
-    version='0.10',
+    version='0.11',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     author='Tatiana Cazorla y Rubén Serrano',
