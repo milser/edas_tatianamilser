@@ -118,7 +118,7 @@ This function creates a histogram for each variable in the 'variables' list. It 
 - **Usage example:**
   ```python
   list = ['age,'smoke','region','children']
-  EDA.univariate\_hist(list,df_example)
+  EDA.univariate_hist(list,df_example)
 Draws a figure with 4 histograms, three in the first row and one in the second, without kernel density estimation line and in turquoise.
 
 - **Return:**
@@ -136,7 +136,7 @@ This function creates a histogram and a box plot for each variable in the 'varia
 - **Usage example:**
   ```python
   list = ['age,'smoke','charges','bmi']
-  EDA.un
+  EDA.univariate_histbox(list, df_example)
 
 ### `multivariate_barplots(df, variable_lists,y='count',palette='Set2')`
 
@@ -222,7 +222,7 @@ This function searches for outliers in the indicated column, using the interquar
 
 - **Usage example:**
   ```python
-  outliers, cleaned_df =EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
+  outliers, cleaned_df = EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
 In this case, cleaned_df will not have the outlier rows because 'drop' option is chosen.
 - **Return:**
   Returns a dataframe with the outliers and another dataframe with the outliers treated according to the chosen method. In any case, it will print the number of outliers found.
