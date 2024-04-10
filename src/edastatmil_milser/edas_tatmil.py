@@ -33,8 +33,10 @@ import seaborn as sns
 import os
 import math
 import importlib
+import numpy as np
 
 from tabulate import tabulate
+from enum import Enum
 from typing import List, Tuple, Literal, Union, Dict
 
 ############################################################################
@@ -360,7 +362,8 @@ def factorize_categorical(df: pd.DataFrame, cols_to_factor: List[str]) -> pd.Dat
 
     return df_
 
-def correlation_matrix(df: pd.DataFrame, variables_list: List[str]) -> None:
+def correlation_matrix(df: pd.DataFrame, variables_list: List[str]) -> None: 
+    # TODO permitir realizar la matriz de correlacion sin guardar DF. Guardar en: factorize_categorical
     """
     Creates a correlation matrix for the specified variables in a pandas DataFrame.
 
@@ -423,7 +426,14 @@ def numerical_box(variables: List[str], data_frame: pd.DataFrame, color: str = '
     
     plt.tight_layout()
 
-def outliers_iqr(df: pd.DataFrame, var: str, sigma: float, Do: str = 'nothing') -> Tuple[pd.DataFrame, pd.DataFrame]:
+class Do_enum(Enum):
+    NOTHING = "nothing"
+    DROP = "drop"
+    MODE = "mode"
+    MEAN = "mean"
+    MEDIAN = "median"
+
+def outliers_iqr(df: pd.DataFrame, var: str, sigma: float, Do: Do_enum.NOTHING) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Identifies and handles outliers of a variable in a pandas DataFrame using the interquartile range (IQR).
 
@@ -435,12 +445,12 @@ def outliers_iqr(df: pd.DataFrame, var: str, sigma: float, Do: str = 'nothing') 
         df (pandas.DataFrame): The pandas DataFrame containing the data.
         var (str): Name of the variable for which outliers will be identified.
         sigma (float): Tolerance for the interquartile range (IQR).
-        Do (str, optional): Action to take with the outliers.
-            'nothing' (default): No action is taken.
-            'drop': Outliers are DROPPED.
-            'mode': Outliers are REPLACED by the MODE.
-            'mean': Outliers are REPLACED by the MEAN.
-            'median': Outliers are REPLACED by the MEDIAN.
+        Do (Enum, optional): Action to take with the outliers.
+            'NOTHING' (default): No action is taken.
+            'DROP': Outliers are DROPPED.
+            'MODE': Outliers are REPLACED by the MODE.
+            'MEAN': Outliers are REPLACED by the MEAN.
+            'MEDIAN': Outliers are REPLACED by the MEDIAN.
 
     Returns::
 
@@ -578,7 +588,7 @@ def normalize(origin_root: str, predictors: List[str], scaler: str = 'StandardSc
 
             scaler_.fit(df_)
             scaler_df_ = scaler_.transform(df_)
-            scaler_df_ = pd.DataFrame(scaler_df_, index = df_.index_, columns = predictors_)
+            scaler_df_ = pd.DataFrame(scaler_df_, index = df_.index, columns = predictors_)
             
             name_ = (df_root_.split('/'))[-1].split('.')[0]       
             destino_ =origin_root_+'NormData/'
