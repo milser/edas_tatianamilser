@@ -1,4 +1,4 @@
-# EDAS V0.16
+# EDAS V0.17
 
 <!-- Here edas_tatmil should be replaced with your library's name on PyPI  -->
 [![PyPI version](https://badge.fury.io/py/edastatmil-milser.svg)](https://badge.fury.io/py/edastatmil-milser)
@@ -265,7 +265,7 @@ This function normalizes the data of the predictor variables.
 - **Usage example:**
   ```python
   predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
-  EDA.normalize('../data/processed/SplitData/',predictors,scaler_='StandardScaler')
+  EDA.normalize('../data/processed/SplitData/',predictors,scaler='StandardScaler')
 Predictor variables of all dataframes located in the directory '../data/processed/SplitData/' and containing the suffixes _Xtrain,_Xtest in their file names will be normalized.
 - **Return:**
   Creates a folder in the indicated path named NormData. Inside, you will find all resulting dataframes from the normalization of each dataframe. To the original file names, the suffix _norm will be added.
@@ -287,11 +287,11 @@ This function performs feature selection on the training datasets, leaving a num
   ```python
   All_X_train = pd.read_csv('../data/processed/SplitData/NormData/All_factorize_Xtrain_norm.csv')
   All_y_train = pd.read_csv('../data/processed/SplitData/All_factorize_ytrain.csv')    
-  EDA.feature_sel(All_X_train,All_y_train,k_=4,file_name='All_Xtrain', method_='SelectKBest', test_='mutual_info_regression')
+  EDA.feature_sel(All_X_train,All_y_train,k=4,file_name='All_Xtrain', method='SelectKBest', test='mutual_info_regression')
 Normalized dataframes can be loaded from wherever they were saved.
 A training dataframe will be created containing only the most relevant columns according to the specified method and test.  
 - **Return:**
-  Creates a folder in the SplitData folder, named FeatureSel, and saves the dataset with only the selected columns with the indicated name and the suffix _FeatureSel.
+  Creates a folder in the SplitData folder, named FeatureSel, and saves the dataset with only the selected columns with the indicated name and the suffix _FeatureSel and the list of columns.
 
 Version 1.0 (07/04/2024)
 

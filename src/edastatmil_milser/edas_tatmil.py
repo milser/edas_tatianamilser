@@ -1,5 +1,5 @@
 ############################################################################
-#                       Functions for complete EDA   V0.16                 #
+#                       Functions for complete EDA   V0.17                 #
 # ------------------------------------------------------------------------ #
 #   - get_column_type for discrimine variables in numerical or categorical #
 #   - explore for get basic info and both list of numerical and            #
@@ -599,7 +599,7 @@ def normalize(origin_root: str, predictors: List[str], scaler: str = 'StandardSc
     return normalized_datasets_
 
 
-def feature_sel(X_train: pd.DataFrame, y_train: pd.Series, k: int, file_name: str, method: str = 'SelectKBest', test: str = 'mutual_info_classif') -> pd.DataFrame:
+def feature_sel(X_train: pd.DataFrame, y_train: pd.Series, k: int, file_name: str, method: str = 'SelectKBest', test: str = 'mutual_info_classif') -> tuple[pd.DataFrame, list[str]]:
     """
     Performs feature selection and saves the selected dataset to a CSV file in
     >>> \\data\\processed\\SplitData\\FeatureSel\\
@@ -619,6 +619,7 @@ def feature_sel(X_train: pd.DataFrame, y_train: pd.Series, k: int, file_name: st
     Returns::
 
         pd.DataFrame: Selected dataset.
+        list(Str): Selected columns.
     """
     X_train_ = X_train.copy()
     y_train_ = y_train.copy()
@@ -635,9 +636,9 @@ def feature_sel(X_train: pd.DataFrame, y_train: pd.Series, k: int, file_name: st
     selection_model_.fit(X_train_, y_train_)
     ix_ = selection_model_.get_support()
     X_train_sel_ = pd.DataFrame(selection_model_.transform(X_train_), columns = X_train_.columns.values[ix_])
+    keys_sel_ = list(X_train_sel_.keys())
 
     if not os.path.exists('../data/processed/SplitData/FeatureSel/'):
             os.makedirs('../data/processed/SplitData/FeatureSel/')
     X_train_sel_.to_csv('../data/processed/SplitData/FeatureSel/'+str(file_name_)+'_FeatureSel.csv', index=False)
-
-    return X_train_sel_
+    return X_train_sel_ , keys_sel_
