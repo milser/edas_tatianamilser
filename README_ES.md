@@ -1,4 +1,4 @@
-# EDAS V0.15
+# EDAS V0.16
 
 <!-- Here edas_tatmil should be replaced with your library's name on PyPI  -->
 [![PyPI version](https://badge.fury.io/py/edastatmil-milser.svg)](https://badge.fury.io/py/edastatmil-milser)

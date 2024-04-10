@@ -1,4 +1,4 @@
-# EDAS V0.15
+# EDAS V0.16
 
 <!-- Here edas_tatmil should be replaced with your library's name on PyPI  -->
 [![PyPI version](https://badge.fury.io/py/edastatmil-milser.svg)](https://badge.fury.io/py/edastatmil-milser)
@@ -218,11 +218,11 @@ This function searches for outliers in the indicated column, using the interquar
    - df: the name of the dataframe to be explored.
    - var: the variable on which outliers are to be searched.
    - sigma: the parameter for adjusting the accepted value range.
-   - Do: what to do with the outliers. If 'nothing', it counts them but does nothing. If 'mode', 'median', or 'mean', it replaces them with the mode, median, or mean respectively. If 'drop', it removes the rows with the outliers from the dataframe. 
+   - Do: what to do with the outliers. If `Do.NOTHING`, it counts them but does nothing. If `Do.MODE`, `Do.MEDIAN`, or `Do.MEAN`, it replaces them with the mode, median, or mean respectively. If `Do.DROP`, it removes the rows with the outliers from the dataframe. 
 
 - **Usage example:**
   ```python
-  outliers, cleaned_df = EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
+  outliers, cleaned_df = EDA.outliers_iqr(raw_df,'bmi',1,Do=Do.NOTHING)
 In this case, cleaned_df will not have the outlier rows because 'drop' option is chosen.
 - **Return:**
   Returns a dataframe with the outliers and another dataframe with the outliers treated according to the chosen method. In any case, it will print the number of outliers found.

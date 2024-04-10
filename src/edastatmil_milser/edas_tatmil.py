@@ -1,5 +1,5 @@
 ############################################################################
-#                       Functions for complete EDA                         #
+#                       Functions for complete EDA   V0.16                 #
 # ------------------------------------------------------------------------ #
 #   - get_column_type for discrimine variables in numerical or categorical #
 #   - explore for get basic info and both list of numerical and            #
@@ -473,21 +473,20 @@ def outliers_iqr(df: pd.DataFrame, var: str, sigma: float, Do: Do_enum.NOTHING) 
     outliers_ = df_[(df_[var_] >= upper_l_) | (df_[var_] < lower_l_)]
     num_outliers_ = outliers_.shape[0]     
 
-    if Do_ == 'nothing':
+    if Do_ == Do_enum.NOTHING:
         print(str(num_outliers_)+' outliers have been found')
-        pass
     else:
-        if Do_ != 'drop':
-            if Do_ == 'mode':
-                replacer_ = df_[var_].mode()                    
-            elif Do_ == 'mean':
+        if Do_ != Do_enum.DROP:
+            if Do_ == Do_enum.MODE:
+                replacer_ = df_[var_].mode()[0]                    
+            elif Do_ == Do_enum.MEAN:
                 replacer_ = df_[var_].mean()
-            elif Do_ == 'median':
+            elif Do_ == Do_enum.MEDIAN:
                 replacer_ = df_[var_].median()
 
-            replace_func_ = lambda x_: x_ if lower_l_ <= x_ < upper_l_ else replacer_
+            replace_func_ = lambda x: x if lower_l_ <= x < upper_l_ else replacer_
             df_[var_] = df_[var_].apply(replace_func_)        
-            print(str(num_outliers_) + ' outliers have been treated by replacing them with the ' + Do_)
+            print(str(num_outliers_) + ' outliers have been treated by replacing them with the ' + Do_.value)
         else:
             df_ = df_[var_].between(lower_l_, upper_l_)
             print(str(num_outliers_)+' outliers have been treated by dropping')
