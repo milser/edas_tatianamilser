@@ -42,6 +42,20 @@ Esta librería proporciona herramientas útiles para llevar a cabo un EDA comple
    EDA.function_example
 
 ## Funciones
+### `build_directory(data_root)`
+
+Esta función crea el sistema de carpetas recomendado para llevar a cabo un EDA completo con esta librería.
+
+- **Atributos:** 
+   - data_root: la ruta al archivo principal de datos, con '/' al final.
+
+- **Ejemplo de uso:**
+  ```python
+   EDA.build_directory('../data/')
+
+- **Return:**
+   Si no existen, añade la carpeta 'processed' en la carpeta 'data'. Dentro de 'processed' crea las carpetas 'factorized_mapping', 'NonSplit' y 'SplitData'. Dentro de 'SplitData' crea las carpetas 'FeatureSel' y 'NormData'.
+
 ### `get_column_type(series)`
 
 Esta función estudia si una característica es numérica o categórica.
@@ -179,7 +193,7 @@ Esta función factoriza las variables categóricas incluidas en la lista cols\_t
 - **Return:**
    Devuelve el dataframe con las variables indicadas factorizadas.
 
-### `correlation_matrix(df, variables_list)`
+### `correlation_matrix(df, variables_list, size)`
 
 Esta función construye y muestra en una mapa de calor la matriz de correlación.
 > **⚠️ Nota:** No es necesario factorizar las variables categóricas antes de llamar a esta función. Basta con incluirlas en la lista.
@@ -187,13 +201,14 @@ Esta función construye y muestra en una mapa de calor la matriz de correlación
 - **Atributos:** 
    - df: el nombre del dataframe que queramos explorar.
    - variables_list: lista de las variables categóricas de tu dataframe que no estén factorizadas. 
+   - size: tupla con el ancho y el alto de la figura. Por defecto (20,16).
 
 - **Ejemplo de uso:**
   ```python
-   df_factorice = EDA.correlation_matrix(raw_df, categorical_list)
+   df_factorice, df_factorice_onlynumerical  = EDA.correlation_matrix(raw_df, categorical_list,(10,7))
 ![heatmap](./images/heatmap.png)
 - **Return:**
-   Muestra la figura y devueve el dataframe con las variables categóricas factorizadas.
+   Muestra la figura y devueve dos dataframes. El primer dataframe con las variables categóricas factorizadas como 'variable' y el equivalente categórico como 'variable_0'. El segundo dataframe contiene unicamente las variables numericas y las categóricas factorizadas. 
 
 ### `numerical_box(variables, data_frame, color='#1295a6')`
 
@@ -212,9 +227,11 @@ Esta hace un gráfico de caja por cada variable dela lista y los muestra en una 
 - **Return:**
    Muestra la figura.
 
-### `outliers_iqr(df,var,sigma,Do='nothing')`
+### `outliers_iqr(df,var,sigma,Do=Do_enum.NOTHING)`
 
 Esta función busca outliers en la columna indicada, con el criterio de rango intercuartílico (75\%-25\%). Se ajustan los límites superior e inferior del intervalo de valores aceptados con un parámetro sigma. Hay diferentes opciones para tratar los outliers encontrados.
+> **⚠️ Nota:** Esta función necesita importar Do_enum.
+
 > **⚠️ Nota:** Esta función no es la única forma de tratar los outliers y para casos específicos no contemplados aquí deberá hacerse a mano.
 
 > **⚠️ Nota:** Hay que tener encuenta que esta función tratará de la forma indicada TODOS los outliers de la misma columna.
@@ -225,11 +242,12 @@ Esta función busca outliers en la columna indicada, con el criterio de rango in
    - df: el nombre del dataframe que queramos explorar.
    - var: la variable sobre la que se buscan outliers.
    - sigma: el parámetro de ajuste del intervalo de valores aceptados.
-   - Do: qué hacer con los outliers. Si es 'nothing', los cuenta pero no hace nada con ellos. Si es 'mode','median' o 'mean' los sustituye por la moda, mediana o media respectivamente. Si es 'drop' elimina las filas con los outliers del dataframe. 
+   - Do: qué hacer con los outliers. Si es 'nothing', los cuenta pero no hace nada con ellos. Si es 'mode','median' o 'mean' los sustituye por la moda, mediana o media respectivamente. Si es 'drop' elimina las filas con los outliers del dataframe. Por defecto es 'nothing'.
 
 - **Ejemplo de uso:**
   ```python
-   outliers, cleaned_df =EDA.outliers_iqr(raw_df,'bmi',1,Do='drop')
+   from edastatmil_milser.edas_tatmil import Do_enum
+   outliers, cleaned_df =EDA.outliers_iqr(raw_df,'bmi',1,Do=Do_enum.DROP)
 En este caso cleaned\_df no tendrá las filas de outliers porque se ha escogido la opción 'drop'.
 - **Return:**
   Devuelve un dataframe con los outliers y otro dataframe con los outliers tratados según el procedimiento escogido. En cualquier caso imprimirá por pantalla el numero de outliers encontrados.
@@ -272,7 +290,7 @@ Esta función normaliza los datos de las variables predictoras.
 - **Ejemplo de uso:**
   ```python
    predictors = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
-   EDA.normalize('../data/processed/SplitData/',predictors,scaler_='StandardScaler')
+   EDA.normalize('../data/processed/SplitData/',predictors,scaler='StandardScaler')
 Se normalizarán las variables predictoras de todos los dataframe que se encuentren en el directorio '../data/processed/SplitData/' y que contengan las coletillas _Xtrain,_Xtest en su nombre de archivo.
 - **Return:**
   Crea una carpeta en la ruta indicada llamada NormData. Dentro se encuentran todos los dataframes resultantes de la normalización de cada dataframe. A los nombres originales de los archivos se habrá agregado la coletilla _norm
@@ -294,7 +312,7 @@ Esta función hace el feature selection sobre los dataset de entrenamiento, deja
   ```python
    All_X_train = pd.read_csv('../data/processed/SplitData/NormData/ All_factorize_Xtrain_norm.csv')
    All_y_train = pd.read_csv('../data/processed/SplitData/All_factorize_ytrain.csv')    
-   EDA.feature_sel(All_X_train,All_y_train,k_=4,file_name='All_Xtrain', method_='SelectKBest', test_='mutual_info_regression')
+   EDA.feature_sel(All_X_train,All_y_train,k=4,file_name='All_Xtrain', method='SelectKBest', test='mutual_info_regression')
 Se pueden cargar los dataframe normalizados desde donde se hayan guardado.
 Se creará un dataframe de entrenamiento que sólo contenga las columnas más relevantes según el método y test indicados.  
 - **Return:**
