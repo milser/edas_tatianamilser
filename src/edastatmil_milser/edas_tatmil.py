@@ -1,5 +1,5 @@
 ############################################################################
-#                       Functions for complete EDA   V0.17                 #
+#                       Functions for complete EDA   V1.0.0                 #
 # ------------------------------------------------------------------------ #
 #   - build_directory for create necessary files structure.
 #   - get_column_type for discrimine variables in numerical or categorical #
@@ -42,7 +42,7 @@ from typing import List, Tuple, Literal, Union, Dict
 
 ############################################################################
 
-def build_directory(data_root: str) -> -> None:
+def build_directory(data_root: str) -> None:
     """
     Create the folder structure that this library recommends for storing files.
 
@@ -58,8 +58,8 @@ def build_directory(data_root: str) -> -> None:
     directory_end =['processed/','processed/factorized_mapping/','processed/NonSplit/','processed/SplitData/','processed/SplitData/FeatureSel/','processed/SplitData/NormData/']
     for d in directory_end:
         destino_ = data_root_ + d
-            if not os.path.exists(destino_):
-                os.makedirs(destino_)
+        if not os.path.exists(destino_):
+            os.makedirs(destino_)
                 
 
 def get_column_type(series: str) -> Literal['Numerical','Categorical']:
@@ -382,8 +382,7 @@ def factorize_categorical(df: pd.DataFrame, cols_to_factor: List[str]) -> pd.Dat
 
     return df_
 
-def correlation_matrix(df: pd.DataFrame, variables_list: List[str], size: Tupla(int)=(20,16)) -> None: 
-    # TODO permitir realizar la matriz de correlacion sin guardar DF. Guardar en: factorize_categorical
+def correlation_matrix(df: pd.DataFrame, variables_list: List[str], size: Tuple[int,int]=(20,16)) -> None: 
     """
     Creates a correlation matrix for the specified variables in a pandas DataFrame.
 
@@ -403,14 +402,15 @@ def correlation_matrix(df: pd.DataFrame, variables_list: List[str], size: Tupla(
     """
     df_ = df.copy()
     variables_list_ = variables_list.copy()
+    size_ = size
     
     fz_df_ = factorize_categorical(df_, variables_list_)
     fz_df = fz_df_.copy()
-    fz_df_numcol = fz_df[df_.columns]
-    plt.figure(figsize=size)
-    sns.heatmap(fz_df_numcol.corr(), annot = True, fmt = ".2f")
+    fz_df_numcol_ = fz_df[df_.columns]
+    plt.figure(figsize=size_)
+    sns.heatmap(fz_df_numcol_.corr(), annot = True, fmt = ".2f")
 
-    return fz_df_, fz_df_numcol
+    return fz_df_, fz_df_numcol_
 
 def numerical_box(variables: List[str], data_frame: pd.DataFrame, color: str = '#1295a6') -> None:
     """
